@@ -6,11 +6,7 @@
     <artifactId>runjar</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <modules>
-        <module>testjar</module>
-    </modules>
-
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
 
@@ -18,6 +14,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-exec</artifactId>
             <version>1.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.48</version>
         </dependency>
 
     </dependencies>

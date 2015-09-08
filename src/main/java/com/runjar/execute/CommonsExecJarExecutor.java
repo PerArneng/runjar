@@ -18,7 +18,7 @@ public class CommonsExecJarExecutor implements JarExecutor {
             cmdline.setSubstitutionMap(new HashMap<String, Object>() {{
                 put("file", jarFile);
             }});
-            cmdline.addArgument("${file}");
+            cmdline.addArgument("\"${file}\"");
 
             System.out.println("executing: " + cmdline);
             DefaultExecutor executor = new DefaultExecutor();
