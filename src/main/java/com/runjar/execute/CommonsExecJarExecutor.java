@@ -5,17 +5,24 @@ import org.apache.commons.exec.DefaultExecutor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class CommonsExecJarExecutor implements JarExecutor {
 
     @Override
-    public void execute(File jarFile) {
+    public void execute(final File jarFile) {
         try {
-            
-            CommandLine cmdLine = CommandLine.parse(String.format("java -jar '%s'", jarFile.getAbsolutePath()));
-            System.out.println("executing: " + cmdLine);
+
+            CommandLine cmdline = new CommandLine("java");
+            cmdline.addArgument("-jar");
+            cmdline.setSubstitutionMap(new HashMap<String, Object>() {{
+                put("file", jarFile);
+            }});
+            cmdline.addArgument("${file}");
+
+            System.out.println("executing: " + cmdline);
             DefaultExecutor executor = new DefaultExecutor();
-            int exitValue = executor.execute(cmdLine);
+            int exitValue = executor.execute(cmdline);
 
             if (exitValue > 0) {
                 throw new ExecutionException(exitValue, "return code > 0");
