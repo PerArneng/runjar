@@ -5,29 +5,17 @@ import com.runjar.execute.JarExecutor;
 import com.runjar.io.ManifestInfoReader;
 import com.runjar.model.ManifestInfo;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 
-@Configuration
-@ComponentScan
-public class Main implements CommandLineRunner {
+public class RunJarCommandLineRunner implements CommandLineRunner {
 
-    private static ApplicationContext applicationContext = null;
+    private final ArgumentsParser argumentsParser;
+    private final ManifestInfoReader manifestInfoReader;
 
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-        return Main.this;
-    }
-
-    public static void main(String[] args) {
-        final SpringApplication app = new SpringApplication(Main.class);
-        app.setShowBanner(false);
-        applicationContext = app.run(args);
+    public RunJarCommandLineRunner(ArgumentsParser argumentsParser, ManifestInfoReader manifestInfoReader) {
+        this.argumentsParser = argumentsParser;
+        this.manifestInfoReader = manifestInfoReader;
     }
 
     @Override
