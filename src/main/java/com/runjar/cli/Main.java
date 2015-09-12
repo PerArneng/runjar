@@ -4,13 +4,34 @@ import com.runjar.execute.CommonsExecJarExecutor;
 import com.runjar.execute.JarExecutor;
 import com.runjar.io.ManifestInfoReader;
 import com.runjar.model.ManifestInfo;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 
-public class Main {
+@Configuration
+@ComponentScan
+public class Main implements CommandLineRunner {
+
+    private static ApplicationContext applicationContext = null;
+
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return Main.this;
+    }
 
     public static void main(String[] args) {
+        final SpringApplication app = new SpringApplication(Main.class);
+        app.setShowBanner(false);
+        applicationContext = app.run(args);
+    }
 
+    @Override
+    public void run(String... args) throws Exception {
 
         Arguments arguments = null;
 
